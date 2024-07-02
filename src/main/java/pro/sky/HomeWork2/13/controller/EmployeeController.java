@@ -7,8 +7,6 @@ import pro.sky.HomeWork18.lesson25.model.Employee;
 import pro.sky.HomeWork18.lesson25.service.EmployeeService;
 import java.util.Collection;
 
-import static org.apache.commons.lang3.StringUtils.isAlpha;
-
 
 @RestController
 @RequestMapping("/employee")
@@ -27,12 +25,12 @@ public class EmployeeController {
 
 
     @GetMapping("/remove")
-    public Employee removeEmployee(@RequestParam String firstName, @RequestParam String lastName,@RequestParam Integer departmentNumber,@RequestParam Integer salary) {
-        return service.remove(firstName, lastName,departmentNumber,salary);
+    public Employee removeEmployee(@RequestParam String firstName, @RequestParam String lastName) {
+        return service.remove(firstName, lastName);
     }
     @GetMapping("/find")
-    public Employee findEmployee(@RequestParam String firstName, @RequestParam String lastName,@RequestParam Integer departmentNumber,@RequestParam Integer salary) {
-        return service.find(firstName, lastName,departmentNumber,salary);
+    public Employee findEmployee(@RequestParam String firstName, @RequestParam String lastName) {
+        return service.find(firstName, lastName);
     }
     @GetMapping
     public Collection<Employee> findAll() {

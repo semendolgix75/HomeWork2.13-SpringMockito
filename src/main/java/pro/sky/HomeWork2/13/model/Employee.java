@@ -12,8 +12,8 @@ public class Employee {
 
 
     public Employee(String firstName, String lastName, Integer departmentNumber, Integer salary) {
-        this.firstName = capitalize(firstName);;
-        this.lastName = capitalize(lastName);
+        this.firstName = capitalize(firstName.toLowerCase());;
+        this.lastName = capitalize(lastName.toLowerCase());
         this.departmentNumber = departmentNumber;
         this.salary = salary;
     }
@@ -32,8 +32,7 @@ public class Employee {
     public String getLastName() {
         return lastName;
     }
-    public String getFullName(){
-        return firstName +"  "+ lastName;}
+
 
     @Override
     public boolean equals(Object object) {

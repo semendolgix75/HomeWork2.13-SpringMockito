@@ -8,10 +8,13 @@ public interface EmployeeService {
 
     Employee add(String firstName, String lastName, Integer departmentNumber, Integer salary);
 
-    Employee remove(String firstName, String lastName, Integer departmentNumber, Integer salary);
-    Employee find(String firstName, String lastName, Integer departmentNumber, Integer salary);
+
+    Employee remove(String firstName, String lastName);
+
 
 
     Collection<Employee> findAll();
+
+    Employee find(String firstName, String lastName);
 }
 

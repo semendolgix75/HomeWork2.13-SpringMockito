@@ -9,11 +9,10 @@ import pro.sky.HomeWork18.lesson25.model.Employee;
 
 import java.util.*;
 
-import static org.apache.commons.lang3.StringUtils.capitalize;
 import static org.apache.commons.lang3.StringUtils.isAlpha;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService {
+public class EmployeeServiceImpl implements pro.sky.HomeWork18.lesson25.service.EmployeeService {
     private final Map<String, Employee> employees;
 
     public EmployeeServiceImpl() {
@@ -28,7 +27,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         add("Borisov", "Boris", 3, 90000);
         add("Vladimirov", "Vladimir", 4, 80000);
         add("Andreev", "Andrey", 5, 70200);
-        add("Hikolaev", "Hikolay", 1, 85000);
+        add("Nikolaev", "Nikolay", 1, 85000);
         add("Ivanov", "Ivan", 2, 70000);
         add("Petrov", "Petr", 3, 68000);
         add("Sidorov", "Sidor", 4, 75000);
@@ -45,10 +44,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         checkTextData(firstName, lastName);
 
         Employee employee = new Employee(firstName, lastName, departmentNumber, salary);
-        if (employees.containsKey(employee.getFullName())) {
+        if (employees.containsKey(getFullName(firstName,lastName))) {
             throw new EmployeeAlreadyAddedException();
         }
-        employees.put(employee.getFullName(), employee);
+        employees.put(getFullName(firstName,lastName), employee);
         return employee;
     }
 
@@ -59,19 +58,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee remove(String firstName, String lastName, Integer departmentNumber, Integer salary) {
-        Employee employee = new Employee(firstName, lastName, departmentNumber, salary);
-        if (employees.containsKey(employee.getFullName())) {
-            return employees.remove(employee.getFullName());
+    public Employee remove(String firstName, String lastName) {
+//        Employee employee = new Employee(firstName, lastName, departmentNumber, salary);
+        if (employees.containsKey(getFullName(firstName,lastName))) {
+            return employees.remove(getFullName(firstName,lastName));
         }
         throw new EmployeeNotFoundException();
     }
 
     @Override
-    public Employee find(String firstName, String lastName, Integer departmentNumber, Integer salary) {
-        Employee employee = new Employee(firstName, lastName, departmentNumber, salary);
-        if (employees.containsKey((employee.getFullName()))) {
-            return employees.get(employee.getFullName());
+    public Employee find(String firstName, String lastName) {
+        if (employees.containsKey(getFullName(firstName,lastName))) {
+            return employees.get(getFullName(firstName,lastName));
         }
         throw new EmployeeNotFoundException();
     }
@@ -82,7 +80,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         return Collections.unmodifiableCollection(employees.values());
     }
 
-
+    public String getFullName(String firstName,String lastName){
+        return firstName +"  "+ lastName;}
 }
 
 
