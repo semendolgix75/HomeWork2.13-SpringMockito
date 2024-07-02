@@ -16,6 +16,7 @@ public class Employee {
         this.lastName = capitalize(lastName.toLowerCase());
         this.departmentNumber = departmentNumber;
         this.salary = salary;
+
     }
 
     public String getFirstName() {
