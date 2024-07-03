@@ -80,6 +80,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         return Collections.unmodifiableCollection(employees.values());
     }
 
+    @Override
+    public List<Employee> allEmployees() {
+        return new ArrayList<>(employees.values());
+    }
     public String getFullName(String firstName,String lastName){
         return firstName +"  "+ lastName;}
 }
