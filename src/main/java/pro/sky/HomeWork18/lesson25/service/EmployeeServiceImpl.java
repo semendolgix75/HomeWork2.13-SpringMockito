@@ -2,8 +2,8 @@ package pro.sky.HomeWork18.lesson25.service;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
-import pro.sky.HomeWork18.lesson25.exception.EmployeeEntryError;
 import pro.sky.HomeWork18.lesson25.exception.EmployeeAlreadyAddedException;
+import pro.sky.HomeWork18.lesson25.exception.EmployeeEntryError;
 import pro.sky.HomeWork18.lesson25.exception.EmployeeNotFoundException;
 import pro.sky.HomeWork18.lesson25.model.Employee;
 
@@ -12,7 +12,7 @@ import java.util.*;
 import static org.apache.commons.lang3.StringUtils.isAlpha;
 
 @Service
-public class EmployeeServiceImpl implements pro.sky.HomeWork18.lesson25.service.EmployeeService {
+public class EmployeeServiceImpl implements EmployeeService {
     private final Map<String, Employee> employees;
 
     public EmployeeServiceImpl() {
@@ -80,6 +80,12 @@ public class EmployeeServiceImpl implements pro.sky.HomeWork18.lesson25.service.
         return Collections.unmodifiableCollection(employees.values());
     }
 
+
+    @Override
+    public List<Employee> allEmployees() {
+        return new ArrayList<>(employees.values());
+    }
+    @Override
     public String getFullName(String firstName,String lastName){
         return firstName +"  "+ lastName;}
 }
