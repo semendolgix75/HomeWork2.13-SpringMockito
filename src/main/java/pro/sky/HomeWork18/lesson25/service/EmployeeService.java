@@ -4,6 +4,7 @@ import pro.sky.HomeWork18.lesson25.model.Employee;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 public interface EmployeeService {
 
@@ -12,12 +13,16 @@ public interface EmployeeService {
 
     Employee remove(String firstName, String lastName);
 
-    Collection<Employee> findAll();
+ //   Collection<Employee> findAll();
 
     Employee find(String firstName, String lastName);
 
     List<Employee> allEmployees();
 
     String getFullName(String firstName, String lastName);
+
+    Map<String,Employee> getAllEmployees();
+
+
 }
 

@@ -8,20 +8,16 @@ import java.util.Map;
 
 public interface DepartmentService {
 
+    Integer getSumSalaryByDepartment(Integer departmentId);
 
-    int getSumSalaryByDepartment(Integer departmentId);
+    List<Employee>  getAllEmployeesByDepartment(Integer departmentId);
 
-    Employee findEmployeeWithMaxSalary(Integer departmentId);
+    Employee getEmployeeWithMaxSalaryByDepartment(Integer departmentId);
 
-    int getMaxSalaryByDepartment(Integer departmentId);
-
-    int getMinSalaryByDepartment(Integer departmentId);
-
-    Employee findEmployeeWithMinSalary(Integer departmentId);
+    Employee getEmployeeWithMinSalaryByDepartment(Integer departmentId);
 
 
-    Collection<Employee>  getAllEmployeesByDepartment(int departmentId);
+    Map<Integer, List<Employee>> getGroupedByDepartmentEmployees();
 
-    Map<Integer, List<Employee>> allEmployeesByDepartment();
 }
 

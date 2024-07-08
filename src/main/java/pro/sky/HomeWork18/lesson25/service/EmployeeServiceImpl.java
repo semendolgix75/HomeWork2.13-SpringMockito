@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pro.sky.HomeWork18.lesson25.exception.EmployeeAlreadyAddedException;
 import pro.sky.HomeWork18.lesson25.exception.EmployeeEntryError;
 import pro.sky.HomeWork18.lesson25.exception.EmployeeNotFoundException;
+import pro.sky.HomeWork18.lesson25.exception.EmployeeStorageIsFullException;
 import pro.sky.HomeWork18.lesson25.model.Employee;
 
 import java.util.*;
@@ -13,12 +14,9 @@ import static org.apache.commons.lang3.StringUtils.isAlpha;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private final Map<String, Employee> employees;
+    private final int EMPLOYEES_STORAGE_SIZE = 16;
+    private final Map<String, Employee> employees = new HashMap<>();
 
-    public EmployeeServiceImpl() {
-        this.employees = new HashMap<>();
-
-    }
 
     @PostConstruct
     private void init() {
@@ -39,17 +37,26 @@ public class EmployeeServiceImpl implements EmployeeService {
         add("Slutskiy", "Leonid", 5, 76000);
     }
 
+    private String getEmployeeKey(String firstName, String lastName) {
+        return firstName + lastName;
+    }
     @Override
     public Employee add(String firstName, String lastName, Integer departmentNumber, Integer salary) {
+
         checkTextData(firstName, lastName);
 
-        Employee employee = new Employee(firstName, lastName, departmentNumber, salary);
-        if (employees.containsKey(getFullName(firstName,lastName))) {
-            throw new EmployeeAlreadyAddedException();
+        String employeeKey = getEmployeeKey(firstName, lastName);
+
+        if (employees.containsKey(employeeKey)) {
+            throw new EmployeeAlreadyAddedException("Сотрудник уже есть в хранилище");
         }
-        employees.put(getFullName(firstName,lastName), employee);
-        return employee;
+        if (employees.size() >= EMPLOYEES_STORAGE_SIZE) {
+            throw new EmployeeStorageIsFullException("Хранилище заполнено!");
+        }
+        employees.put(employeeKey, new Employee(firstName, lastName, departmentNumber, salary));
+        return employees.get(employeeKey);
     }
+
 
     private void checkTextData(String firstName, String lastName) {
         if (!(isAlpha(firstName + lastName))) {
@@ -59,27 +66,29 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee remove(String firstName, String lastName) {
-//        Employee employee = new Employee(firstName, lastName, departmentNumber, salary);
-        if (employees.containsKey(getFullName(firstName,lastName))) {
-            return employees.remove(getFullName(firstName,lastName));
+        String employeeKey = getEmployeeKey(firstName, lastName);
+
+        if (!employees.containsKey(employeeKey)) {
+            throw new EmployeeNotFoundException("Такого сатрудника нет в базе!");
         }
-        throw new EmployeeNotFoundException();
+        return employees.remove(employeeKey);
     }
 
     @Override
     public Employee find(String firstName, String lastName) {
-        if (employees.containsKey(getFullName(firstName,lastName))) {
-            return employees.get(getFullName(firstName,lastName));
+        String employeeKey = getEmployeeKey(firstName, lastName);
+
+        if (!employees.containsKey(employeeKey)) {
+            throw new EmployeeNotFoundException("Такого сатрудника нет в базе!");
         }
-        throw new EmployeeNotFoundException();
+        return employees.get(employeeKey);
     }
 
     @Override
-    public Collection<Employee> findAll() {
+    public Map<String,Employee> getAllEmployees() {
 
-        return Collections.unmodifiableCollection(employees.values());
+        return new HashMap<>(employees);
     }
-
 
     @Override
     public List<Employee> allEmployees() {
@@ -88,6 +97,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public String getFullName(String firstName,String lastName){
         return firstName +"  "+ lastName;}
+
 }
 
 

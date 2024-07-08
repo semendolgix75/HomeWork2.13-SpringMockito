@@ -13,40 +13,33 @@ import java.util.Map;
 public class DepartmentController {
     private final DepartmentService departmentService;
 
+
     public DepartmentController(DepartmentService departmentService)
+
     {
         this.departmentService = departmentService;
     }
     @GetMapping("/{id}/employees")
-    public Collection<Employee> getAllEmployeesByDepartment(@PathVariable int id) {
+    public List<Employee> getAllEmployeesByDepartment(@PathVariable Integer id) {
         return departmentService.getAllEmployeesByDepartment(id);
     }
     @GetMapping("/{id}/salary/sum")
-    public Integer getSumSalaryByDepartment(@PathVariable int id) {
+    public Integer getSumSalaryByDepartment(@PathVariable("id") Integer id) {
         return departmentService.getSumSalaryByDepartment(id);
     }
     @GetMapping("/{id}/salary/max")
-    public Integer getMaxSalaryByDepartment(@PathVariable int id) {
-        return departmentService.getMaxSalaryByDepartment(id);
+    public Integer getMaxSalaryByDepartment(@PathVariable("id") Integer id) {
+        return departmentService.getEmployeeWithMaxSalaryByDepartment(id).getSalary();
     }
 
     @GetMapping("/{id}/salary/min")
-    public Integer getMinSalaryByDepartment(@PathVariable int id) {
-        return departmentService.getMinSalaryByDepartment(id);
-    }
-    @GetMapping("/max-salary")
-    public Employee findWithMaxSalary(@RequestParam Integer departmentId) {
-        return departmentService.findEmployeeWithMaxSalary(departmentId);
-    }
-
-    @GetMapping("/min-salary")
-    public Employee findWithMinSalary(@RequestParam Integer departmentId) {
-        return departmentService.findEmployeeWithMinSalary(departmentId);
+    public Integer getMinSalaryByDepartment(@PathVariable("id") Integer id) {
+        return departmentService.getEmployeeWithMinSalaryByDepartment(id).getSalary();
     }
 
     @GetMapping("/employees")
-    public Map<Integer, List<Employee>> AllEmployeesByDepartment() {
-        return departmentService.allEmployeesByDepartment();
+    public Map<Integer, List<Employee>> getGroupedByDepartmentEmployees() {
+        return departmentService.getGroupedByDepartmentEmployees();
     }
 
 
