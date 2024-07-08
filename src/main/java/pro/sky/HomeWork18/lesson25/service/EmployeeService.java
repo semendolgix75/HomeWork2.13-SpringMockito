@@ -17,7 +17,6 @@ public interface EmployeeService {
 
     Employee find(String firstName, String lastName);
 
-
     List<Employee> allEmployees();
 
     String getFullName(String firstName, String lastName);

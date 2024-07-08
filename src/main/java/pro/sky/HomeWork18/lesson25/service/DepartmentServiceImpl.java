@@ -46,7 +46,6 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .orElse(null);
 
     }
-
     @Override
     public List<Employee> getAllEmployeesByDepartment(Integer departmentId) {
         return employeeService.getAllEmployees().values().stream()

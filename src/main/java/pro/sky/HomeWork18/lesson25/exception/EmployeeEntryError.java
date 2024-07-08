@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class EmployeeEntryError extends RuntimeException{
     public EmployeeEntryError() {
     }
-
     public EmployeeEntryError(String message) {
         super(message);
     }

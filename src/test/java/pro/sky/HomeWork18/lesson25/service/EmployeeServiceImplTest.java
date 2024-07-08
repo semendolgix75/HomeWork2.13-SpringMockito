@@ -20,7 +20,6 @@ public class EmployeeServiceImplTest {
     public void clear() {
         employeeService = new EmployeeServiceImpl();
     }
-
     @Test
     public void shouldThrowEmployeeAlreadyAddedExceptionWhenSuchEmployeeIsAlreadyPresented() {
         //given
