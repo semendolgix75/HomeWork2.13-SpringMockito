@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pro.sky.HomeWork18.lesson25.model.Employee;
 import pro.sky.HomeWork18.lesson25.service.EmployeeService;
 import java.util.Collection;
+import java.util.Map;
 
 
 @RestController
@@ -17,12 +18,17 @@ public class EmployeeController {
         this.service = service;
     }
     @GetMapping("/add")
-    public Employee addEmployee(@RequestParam String firstName, @RequestParam String lastName,@RequestParam Integer departmentNumber,@RequestParam Integer salary) {
+    public Employee addEmployee(@RequestParam String firstName,
+                                @RequestParam String lastName,
+                                @RequestParam Integer departmentNumber,
+                                @RequestParam Integer salary) {
 
-        return service.add(firstName, lastName,departmentNumber,salary);
+        return service.add(
+                firstName,
+                lastName,
+                departmentNumber,
+                salary);
     }
-
-
 
     @GetMapping("/remove")
     public Employee removeEmployee(@RequestParam String firstName, @RequestParam String lastName) {
@@ -33,8 +39,8 @@ public class EmployeeController {
         return service.find(firstName, lastName);
     }
     @GetMapping
-    public Collection<Employee> findAll() {
-        return service.findAll();
+    public Map<String,Employee> getAllEmployees() {
+        return service.getAllEmployees();
 
    }
 }
